@@ -2,6 +2,8 @@
 
 Aplicación web moderna para el seguimiento y gestión de incidentes técnicos, construida con Next.js y Prisma.
 
+![Dashboard de Incidentes](src/img/incidentes.png)
+
 ## 🚀 Características
 
 - **Dashboard de Incidentes**: Vista dual (Cuadrícula y Tabla) para visualizar todos los reportes.
