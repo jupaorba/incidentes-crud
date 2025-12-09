@@ -1,66 +1,79 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
+import Link from "next/link";
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div
+      className="container"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        gap: "2rem",
+      }}
+    >
+      <main
+        className="glass"
+        style={{
+          padding: "4rem",
+          borderRadius: "var(--radius)",
+          maxWidth: "600px",
+          width: "100%",
+          border: "1px solid hsl(var(--border))",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "3.5rem",
+            fontWeight: "800",
+            marginBottom: "1rem",
+            letterSpacing: "-0.05em",
+            background: "linear-gradient(135deg, hsl(var(--primary)), #ec4899)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Incidentes
+        </h1>
+        <p
+          style={{
+            fontSize: "1.25rem",
+            color: "hsl(var(--muted-foreground))",
+            marginBottom: "2.5rem",
+            lineHeight: "1.6",
+          }}
+        >
+          Panel de gestión de incidentes.
+        </p>
+
+        <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+          <Link href="/incidentes/nuevo" className="btn btn-primary">
+            Nuevo Incidente
+          </Link>
+          <Link
+            href="/incidentes"
+            className="btn"
+            style={{
+              background: "hsl(var(--secondary))",
+              color: "hsl(var(--secondary-foreground))",
+            }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Ver Tablero
+          </Link>
         </div>
       </main>
+
+      <footer
+        style={{
+          padding: "2rem",
+          color: "hsl(var(--muted-foreground))",
+          fontSize: "0.875rem",
+        }}
+      >
+        &copy; {new Date().getFullYear()} Incidentes. Todos los derechos
+        reservados.
+      </footer>
     </div>
   );
 }

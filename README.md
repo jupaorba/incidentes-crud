@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de Gestión de Incidentes
 
-## Getting Started
+Aplicación web moderna para el seguimiento y gestión de incidentes técnicos, construida con Next.js y Prisma.
 
-First, run the development server:
+## 🚀 Características
+
+- **Dashboard de Incidentes**: Vista dual (Cuadrícula y Tabla) para visualizar todos los reportes.
+- **Gestión Completa**: Crear, visualizar detalles, actualizar estado y eliminar incidentes.
+- **Filtrado Avanzado**: Búsqueda por texto, filtrado por prioridad y fecha.
+- **UI Moderna**: Interfaz diseñada con estilo Glassmorphism, animaciones fluidas y diseño responsivo.
+- **Actualizaciones en Tiempo Real**: Feedback inmediato al usuario mediante notificaciones toast.
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Framework Principal**: [Next.js 14](https://nextjs.org/) (App Router, Server Components & Server Actions)
+- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
+- **Base de Datos**: SQLite (entorno local)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Estilos**: CSS Modules / Vanilla CSS con diseño Glassmorphism
+- **Iconos**: SVG nativos
+
+## 📋 Requisitos Previos
+
+- Node.js 18.17.0 o superior
+- npm (o yarn/pnpm)
+
+## 🔧 Instalación y Configuración
+
+1. **Clonar el repositorio** (si aplica) o navegar a la carpeta del proyecto.
+
+2. **Instalar dependencias**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Configurar la base de datos**:
+   Como el proyecto utiliza SQLite, no necesitas configurar credenciales externas. Simplemente inicializa la base de datos con Prisma:
+
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+   Esto creará el archivo `dev.db` dentro de la carpeta `/prisma`.
+
+4. **Variables de Entorno**:
+   Asegúrate de que el archivo `.env` exista en la raíz con la siguiente configuración (se crea automáticamente en la mayoría de los casos para SQLite):
+   ```
+   DATABASE_URL="file:./dev.db"
+   ```
+
+## ▶️ Ejecución
+
+Para iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La aplicación estará disponible en [http://localhost:3000/incidentes](http://localhost:3000/incidentes).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Estructura del Proyecto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/incidentes`: Rutas principales de la aplicación.
+  - `page.tsx`: Componente principal que obtiene los datos (Server Component).
+  - `incident-list.tsx`: Componente cliente con la lógica de UI, filtros y modales.
+  - `actions.ts`: Server Actions para operaciones CRUD (Create, Update, Delete).
+  - `nuevo/page.tsx`: Formulario para registrar nuevos incidentes.
+- `prisma/schema.prisma`: Definición del modelo de datos.
 
-## Learn More
+## 🤝 Contribuir
 
-To learn more about Next.js, take a look at the following resources:
+1. Haz un Fork del proyecto.
+2. Crea una rama para tu característica (`git checkout -b feature/AmazingFeature`).
+3. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`).
+4. Push a la rama (`git push origin feature/AmazingFeature`).
+5. Abre un Pull Request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 Licencia
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Distribuido bajo la licencia MIT.
