@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
   try {
     let sql = "SELECT * FROM Incident WHERE 1=1";
-    const args: any[] = [];
+    const args: string[] = [];
 
     if (status) {
       sql += " AND status = ?";

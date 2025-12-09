@@ -56,7 +56,7 @@ export const db = {
       }>
     ) {
       const updates: string[] = [];
-      const args: any[] = [];
+      const args: (string | number)[] = [];
 
       if (data.title) {
         updates.push("title = ?");
