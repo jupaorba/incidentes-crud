@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
+import { createClient } from "@libsql/client";
+
+const client = createClient({
+  url: process.env.DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN!,
+});
 
 // GET ALL INCIDENTS
 export async function GET(request: Request) {
@@ -8,18 +14,25 @@ export async function GET(request: Request) {
   const severity = searchParams.get("severity");
 
   try {
-    const whereClause: any = {};
-    if (status) whereClause.status = status;
-    if (severity) whereClause.severity = severity;
+    let sql = "SELECT * FROM Incident WHERE 1=1";
+    const args: any[] = [];
 
-    const incidents = await prisma.incident.findMany({
-      where: whereClause,
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return NextResponse.json(incidents);
+    if (status) {
+      sql += " AND status = ?";
+      args.push(status);
+    }
+    if (severity) {
+      sql += " AND severity = ?";
+      args.push(severity);
+    }
+
+    sql += " ORDER BY createdAt DESC";
+
+    const result = await client.execute({ sql, args });
+    const plainRows = result.rows.map((row) => JSON.parse(JSON.stringify(row)));
+    return NextResponse.json(plainRows);
   } catch (error) {
+    console.error("Error fetching incidents:", error);
     return NextResponse.json(
       { error: "Error fetching incidents" },
       { status: 500 }
@@ -40,16 +53,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const incident = await prisma.incident.create({
-      data: {
-        title,
-        description,
-        severity: severity || "Media",
-        status: status || "Abierto",
-      },
+    const incident = await db.incident.create({
+      title,
+      description,
+      severity: severity || "Media",
+      status: status || "Abierto",
     });
+
     return NextResponse.json(incident, { status: 201 });
   } catch (error) {
+    console.error("Error creating incident:", error);
     return NextResponse.json(
       { error: "Error creating incident" },
       { status: 500 }

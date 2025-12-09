@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function createIncident(formData: FormData) {
@@ -13,13 +13,11 @@ export async function createIncident(formData: FormData) {
     throw new Error("Title and description are required");
   }
 
-  await prisma.incident.create({
-    data: {
-      title,
-      description,
-      severity: priority, // Mapping priority form field to severity db column
-      status,
-    },
+  await db.incident.create({
+    title,
+    description,
+    severity: priority, // Mapping priority form field to severity db column
+    status,
   });
 
   revalidatePath("/incidentes");
@@ -27,16 +25,11 @@ export async function createIncident(formData: FormData) {
 }
 
 export async function updateIncidentStatus(id: number, status: string) {
-  await prisma.incident.update({
-    where: { id },
-    data: { status },
-  });
+  await db.incident.update(id, { status });
   revalidatePath("/incidentes");
 }
 
 export async function deleteIncident(id: number) {
-  await prisma.incident.delete({
-    where: { id },
-  });
+  await db.incident.delete(id);
   revalidatePath("/incidentes");
 }
