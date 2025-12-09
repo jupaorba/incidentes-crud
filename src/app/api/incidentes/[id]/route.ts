@@ -12,14 +12,11 @@ export async function PATCH(
     const body = await request.json();
     const { status, severity, title, description } = body;
 
-    const updatedIncident = await prisma.incident.update({
-      where: { id },
-      data: {
-        ...(status && { status }),
-        ...(severity && { severity }),
-        ...(title && { title }),
-        ...(description && { description }),
-      },
+    const updatedIncident = await prisma.incident.update(id, {
+      ...(status && { status }),
+      ...(severity && { severity }),
+      ...(title && { title }),
+      ...(description && { description }),
     });
 
     return NextResponse.json(updatedIncident);
@@ -40,9 +37,7 @@ export async function DELETE(
     const { id: idStr } = await params;
     const id = parseInt(idStr);
 
-    await prisma.incident.delete({
-      where: { id },
-    });
+    await prisma.incident.delete(id);
 
     return NextResponse.json({ message: "Incident deleted successfully" });
   } catch (error) {
